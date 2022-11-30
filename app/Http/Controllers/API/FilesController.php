@@ -4,11 +4,38 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\File;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
+use Inertia\Inertia;
+
+
 
 
 class FilesController extends Controller
 {
+
+    public function index()
+    {
+        return Inertia::render('Auth/Residente',[
+            'files' => File::with('user:id')->where('user.id',auth()->user()->id)->get(),
+        ]);
+    }
+
+    /**
+     * Manejar una solicitud de registro entrante.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+
+
+
     //funcion para regras para subir archivos
     public function FileCreated(Request $request)
     {
@@ -20,8 +47,9 @@ class FilesController extends Controller
             'comentario1' => $defecto,
             'comentario2' => $defecto,
             'path' => $defecto,
-            'resident_id' => 'required|integer',
-            'revisor_id' => 'required|integer',
+            'resident_id' => 'required | integer',
+            'revisor1_id' => 'required | integer',
+            'revisor2_id' => 'required |integer',
             'status' => $defecto,
         ]);
 
@@ -32,45 +60,14 @@ class FilesController extends Controller
             'comentario2' => $request->comentario2,
             'path' => $request->path,
             'resident_id' => $request->resident_id,
-            'revisor_id' => $request->revisor_id,
+            'revisor1_id' => $request->revisor1_id,
+            'revisor2_id' => $request->revisor2_id,
             'status' => $request->status,
         ]);
 
-        // se suben los datos a la base de datos
-        $files->save();
-        // se regresa el archivo subido
-        return $files;
-        // se regresa un mensaje de exito
-        return response()->json([
-            'message' => 'Archivo subido con exito',
-        ]);
+
+        event(new Registered($files));
+        Auth::login($files);
+        return redirect(route('file.index')) && response()->json(['message' => 'Archivo subido con exito'], 201);
     }
-
-
-    // funcion para mostrar archivo pdf en el navegador desde url de google drive
-
-    public function show($id)
-    {
-        $file = File::find($id);
-        $url = $file->path;
-        return redirect($url);
-    }
-
-    //funcion para subir url a la base de datos de google drive
-
-    public function upload(Request $request)
-    {
-        $file = new File();
-        $file->name = $request->name;
-        $file->description = $request->description;
-        $file->comentario1 = $request->comentario1;
-        $file->comentario2 = $request->comentario2;
-        $file->path = $request->path;
-        $file->resident_id = $request->resident_id;
-        $file->revisor_id = $request->revisor_id;
-        $file->status = $request->status;
-        $file->save();
-        return redirect()->route('Residente');
-    }
-
 }

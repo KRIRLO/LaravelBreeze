@@ -52,12 +52,11 @@ Route::get('/JefDep', function () {
 })->middleware(['auth', 'verified'])->name('JefDep');
 
 Route::get('/DivEst', function () {
-    return Inertia::render('DashboardDivEst', [
-        // se hace un nuevo registro de la tabla users
-        'canUploadFile' => Route::has('upload'),
-    ]);
+    return Inertia::render('DashboardDivEst');
 })->middleware(['auth', 'verified'])->name('DivEst');
 
-
+Route::resource('user', UserController::class)
+    ->only(['index', 'show', 'edit', 'update', 'destroy'])
+    ->middleware(['auth', 'verified']);
 
 require __DIR__ . '/auth.php';

@@ -37,26 +37,30 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
-
         switch (Auth::user()->role) {
-            case "DivEst":
-                return '/DashboardDivEst';
-                break;
-            case "JefDep":
-                return '/DashboardJefDep';
-                break;
-            case "Revisor":
-                return '/DashboardRevisor';
-                break;
             case "Residente":
-                return '/DashboardResidente';
+                //se redirecciona a la ruta de residente
+                return redirect()->route('Residente');
                 break;
             case "Asesor":
-                return '/DashboardAsesor';
+                //se redirecciona a la ruta de asesor
+                return redirect()->route('Asesor');
+                break;
+            case "Revisor":
+                //se redirecciona a la ruta de revisor
+                return redirect()->route('Revisor');
+                break;
+            case "JefDep":
+                //se redirecciona a la ruta de jefe de departamento
+                return redirect()->route('JefDep');
+                break;
+            case "DivEst":
+                //se redirecciona a la ruta de division de estudios
+                return redirect()->route("DivEst");
                 break;
             default:
-                return '/login';
+                //se redirecciona a la ruta de login
+                return redirect()->route("login");
                 break;
         }
     }

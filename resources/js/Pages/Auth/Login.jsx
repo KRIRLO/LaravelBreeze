@@ -6,6 +6,7 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/inertia-react";
+import { Inertia } from "@inertiajs/inertia";
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -36,17 +37,14 @@ export default function Login({ status, canResetPassword }) {
 
         post(route("login"));
     };
-
-
+    
     return (
-
         <GuestLayout>
             <Head title="Inicio de sesión" />
 
             {status && (
                 <div className="mb-4 font-medium text-sm text-green-600">
                     {status}
-
                 </div>
             )}
 
@@ -106,7 +104,6 @@ export default function Login({ status, canResetPassword }) {
                     )}
 
                     <PrimaryButton className="ml-4" processing={processing}>
-
                         Iniciar sesión
                     </PrimaryButton>
                 </div>

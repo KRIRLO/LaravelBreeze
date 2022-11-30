@@ -12,6 +12,7 @@ export default function Register() {
         numctrl: "",
         email: "",
         role: "",
+        area: "",
         password: "",
         password_confirmation: "",
     });
@@ -37,12 +38,82 @@ export default function Register() {
         post(route("register"));
     };
 
+
+    if (processing === true) {
+        return (
+            // ventana flotante que dice que se esta procesando
+            <div className="fixed z-10 inset-0 overflow-y-auto">
+                <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                    <div
+                        className="fixed inset-0 bg-gray-500 bg-opacity-1 transition-opacity"
+                        aria-hidden="true"
+                    >
+                        <div className="absolute inset-0 bg-gray-900 opacity-75"></div>
+                    </div>
+
+                    <span
+                        className="hidden sm:inline-block sm:align-middle sm:h-screen"
+                        aria-hidden="true"
+                    >
+                        &#8203;
+                    </span>
+
+                    <div
+                        className="inline-block align-bottom bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="modal-headline"
+                    >
+                        <div className="bg-gray-700 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                            <div className="sm:flex sm:items-start">
+                                <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-900 sm:mx-0 sm:h-10 sm:w-10">
+                                    <svg
+                                        className="h-6 w-6 text-green-100"
+                                        stroke="currentColor"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M5 13l4 4L19 7"
+                                        />
+                                    </svg>
+                                </div>
+                                <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                    <h3
+                                        className="text-lg leading-6 font-medium text-gray-900"
+                                        id="modal-headline"
+                                    >
+                                        Procesando...
+                                    </h3>
+                                    <div className="mt-2">
+                                        <p className="text-sm leading-5 text-gray-500">
+                                            Por favor espere...
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        );
+    }
+
+
+    if (data.numctrl != ""){
+        data.email = data.numctrl + "@tecvalles.mx";
+    }
+
     return (
         <GuestLayout>
             <Head title="Registar" />
 
             <form onSubmit={submit}>
-            <div>
+                <div>
                     <InputLabel forInput="name" value="Nombre Completo" />
 
                     <TextInput
@@ -58,7 +129,6 @@ export default function Register() {
 
                     <InputError message={errors.name} className="mt-2" />
                 </div>
-
 
                 <div className="mt-4">
                     <InputLabel forInput="numctrl" value="Numero de control" />
@@ -77,24 +147,8 @@ export default function Register() {
                     <InputError message={errors.numctrl} className="mt-2" />
                 </div>
 
-                <div className="mt-4">
-                    <InputLabel forInput="email" value="Correo" />
-
-                    <TextInput
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="email"
-                        handleChange={onHandleChange}
-                        required
-                    />
-
-                    <InputError message={errors.email} className="mt-2" />
-                </div>
 
                 <div className="mt-4">
-
                     <InputLabel forInput="role" value="Rol" />
 
                     <select
@@ -104,7 +158,10 @@ export default function Register() {
                         onChange={onHandleChange}
                         required
                     >
-                        <option value="DivEst">División de Estudios Profesionales</option>
+                        <option value="">Selecciona un rol</option>
+                        <option value="DivEst">
+                            División de Estudios Profesionales
+                        </option>
                         <option value="JefDep">Jefe de Departamento</option>
                         <option value="Revisor">Revisor</option>
                         <option value="Asesor">Asesor</option>
@@ -113,6 +170,29 @@ export default function Register() {
 
                     <InputError message={errors.role} className="mt-2" />
                 </div>
+
+                {data.role == "JefDep" ? (
+                    <div className="mt-4">
+                        <InputLabel forInput="area" value="Area" />
+
+                        <select
+                            name="area"
+                            value={data.area}
+                            className="dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 dark:placeholder-gray-500 dark:focus:ring-gray-500 dark:focus:border-gray-500 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md mt-1 "
+                            onChange={onHandleChange}
+                            required
+                        >
+                            <option value="Sistemas">Sistemas</option>
+                            <option value="Mecatronica">Mecatronica</option>
+                            <option value="Mecanica">Mecanica</option>
+                            <option value="Electronica">Electronica</option>
+                            <option value="Industrial">Industrial</option>
+                            <option value="Electrica">Electrica</option>
+                            <option value="Materiales">Materiales</option>
+                            <option value="Mecanica">Mecanica</option>
+                        </select>
+                    </div>
+                ) : null}
 
                 <div className="mt-4">
                     <InputLabel forInput="password" value="Contraseña" />
@@ -157,10 +237,13 @@ export default function Register() {
                         ¿Ya tienes una cuenta?
                     </Link>
 
-                    <PrimaryButton className="ml-4" processing={processing}>
+                    <PrimaryButton className="ml-4" processing={processing}
+                    >
                         Registrar
                     </PrimaryButton>
                 </div>
+
+                <InputError message={errors.error} className="mt-4" />
             </form>
         </GuestLayout>
     );

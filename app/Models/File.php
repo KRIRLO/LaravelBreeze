@@ -22,7 +22,8 @@ class File extends Model
         'comentario2',
         'path',
         'resident_id',
-        'revisor_id',
+        'revisor1_id',
+        'revisor2_id',
         'status',
     ];
 
@@ -48,10 +49,14 @@ class File extends Model
         'updated_at' => 'datetime',
     ];
 
+    //se relaciona la tabla files con la tabla users
     public function resident()
     {
-        return $this->belongsTo(Resident::class);
+        return $this->belongsTo(User::class);
     }
 
 
+
 }
+
+

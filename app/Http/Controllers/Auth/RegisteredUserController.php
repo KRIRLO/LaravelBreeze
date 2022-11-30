@@ -52,13 +52,31 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
         Auth::login($user);
-        return redirect(RouteServiceProvider::HOME);
-    }
-
-    public function registroNuevo(Request $request)
-    {
-        $data = $request->all();
-        $this->validator($data);
-        $this->create($data);
+        switch (Auth::user()->role) {
+            case "Residente":
+                //se redirecciona a la ruta de residente
+                return redirect()->route('Residente');
+                break;
+            case "Asesor":
+                //se redirecciona a la ruta de asesor
+                return redirect()->route('Asesor');
+                break;
+            case "Revisor":
+                //se redirecciona a la ruta de revisor
+                return redirect()->route('Revisor');
+                break;
+            case "JefDep":
+                //se redirecciona a la ruta de jefe de departamento
+                return redirect()->route('JefDep');
+                break;
+            case "DivEst":
+                //se redirecciona a la ruta de division de estudios
+                return redirect()->route("DivEst");
+                break;
+            default:
+                //se redirecciona a la ruta de login
+                return redirect()->route("login");
+                break;
+        }
     }
 }

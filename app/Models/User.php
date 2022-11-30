@@ -21,6 +21,7 @@ class User extends Authenticatable
         'numctrl',
         'email',
         'role',
+        'area',
         'password',
     ];
 
