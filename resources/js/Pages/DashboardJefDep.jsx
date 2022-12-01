@@ -14,7 +14,7 @@ export default function DashboardJefDep(props) {
                         <thead className="bg-gray-800">
                             <tr>
                                 <th className="text-left px-3 py-1">
-                                    Anteproyecto
+                                    <Anteproyecto></Anteproyecto>
                                 </th>
                                 <th className="text-left px-3 py-1">Autor</th>
                                 <th className="text-left px-3 py-1">
