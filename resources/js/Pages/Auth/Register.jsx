@@ -34,10 +34,8 @@ export default function Register() {
 
     const submit = (e) => {
         e.preventDefault();
-
         post(route("register"));
     };
-
 
     if (processing === true) {
         return (
@@ -99,12 +97,10 @@ export default function Register() {
                     </div>
                 </div>
             </div>
-
         );
     }
 
-
-    if (data.numctrl != ""){
+    if (data.numctrl != "") {
         data.email = data.numctrl + "@tecvalles.mx";
     }
 
@@ -147,7 +143,6 @@ export default function Register() {
                     <InputError message={errors.numctrl} className="mt-2" />
                 </div>
 
-
                 <div className="mt-4">
                     <InputLabel forInput="role" value="Rol" />
 
@@ -164,14 +159,13 @@ export default function Register() {
                         </option>
                         <option value="JefDep">Jefe de Departamento</option>
                         <option value="Revisor">Revisor</option>
-                        <option value="Asesor">Asesor</option>
                         <option value="Residente">Residente</option>
                     </select>
 
                     <InputError message={errors.role} className="mt-2" />
                 </div>
 
-                {data.role == "JefDep" ? (
+                {data.role != "DivEst" ? (
                     <div className="mt-4">
                         <InputLabel forInput="area" value="Area" />
 
@@ -182,17 +176,16 @@ export default function Register() {
                             onChange={onHandleChange}
                             required
                         >
-                            <option value="Sistemas">Sistemas</option>
-                            <option value="Mecatronica">Mecatronica</option>
-                            <option value="Mecanica">Mecanica</option>
-                            <option value="Electronica">Electronica</option>
-                            <option value="Industrial">Industrial</option>
-                            <option value="Electrica">Electrica</option>
-                            <option value="Materiales">Materiales</option>
-                            <option value="Mecanica">Mecanica</option>
+                            <option value="">Selecciona un area</option>
+                            <option value="Ing. En sistemas computacionales">Ing. en sistemas computacionales</option>
+                            <option value="Ing. Industrial">Ing. Industrial</option>
+                            <option value="Ing. En gestion empresarial">Ing. en gestion empresarial</option>
+                            <option value="Ing. En industrias alimentarias">Ing. en industrias alimentarias</option>
+                            <option value="Ing. Ambiental">Ing. Ambiental</option>
+                            <option value="Ing. En gastronomia">Ing. en gastronomia</option>
                         </select>
                     </div>
-                ) : null}
+                ) : ( <div></div> )}
 
                 <div className="mt-4">
                     <InputLabel forInput="password" value="Contraseña" />
@@ -237,8 +230,7 @@ export default function Register() {
                         ¿Ya tienes una cuenta?
                     </Link>
 
-                    <PrimaryButton className="ml-4" processing={processing}
-                    >
+                    <PrimaryButton className="ml-4" processing={processing}>
                         Registrar
                     </PrimaryButton>
                 </div>

@@ -53,7 +53,7 @@ class FilesController extends Controller
             'status' => $defecto,
         ]);
 
-        $files = File::create([
+        $file = File::create([
             'name' => $request->name,
             'description' => $request->description,
             'comentario1' => $request->comentario1,
@@ -66,8 +66,16 @@ class FilesController extends Controller
         ]);
 
 
-        event(new Registered($files));
-        Auth::login($files);
+        event(new Registered($file));
+        Auth::login($file);
         return redirect(route('file.index')) && response()->json(['message' => 'Archivo subido con exito'], 201);
     }
 }
+
+// se relaciona con el modelo de usuarios
+
+public function user()
+{
+    return $this->belongsTo(User::class);
+}
+

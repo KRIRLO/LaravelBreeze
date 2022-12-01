@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class File extends Model
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * Los atributos que son asignables en masa.
@@ -33,11 +35,6 @@ class File extends Model
      * @var array<int, string>
      */
 
-    protected $hidden = [
-        'created_at',
-        'updated_at',
-    ];
-
     /**
      * Los atributos que deben emitirse.
      *
@@ -52,9 +49,8 @@ class File extends Model
     //se relaciona la tabla files con la tabla users
     public function resident()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'resident_id');
     }
-
 
 
 }

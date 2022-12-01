@@ -4,6 +4,9 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Models\User;
+use App\Models\File;
+
+use function App\Http\Controllers\API\user;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +43,13 @@ Route::get('/Asesor', function () {
 })->middleware(['auth', 'verified'])->name('Asesor');
 
 Route::get('/Residente', function () {
-    return Inertia::render('DashboardResidente');
+    return Inertia::render(
+        'DashboardResidente',
+        [
+            // se obtienen los datos de la tabla files y se envian a la vista pero solo los del usuario logueado
+            'files' => File::where('resident_id', auth()->user()->id)->get()
+        ]
+    );
 })->middleware(['auth', 'verified'])->name('Residente');
 
 Route::get('/Revisor', function () {
@@ -48,11 +57,20 @@ Route::get('/Revisor', function () {
 })->middleware(['auth', 'verified'])->name('Revisor');
 
 Route::get('/JefDep', function () {
-    return Inertia::render('DashboardJefDep');
+    return Inertia::render('DashboardJefDep',[
+        //por medio de la relacion del modelo se obtienen los datos de la tabla files
+        'files' => File::with('resident')->get(),
+        // solo enviar a los usuarios que sean del mismo area que el usuario logueado y que sean revisores
+        'users' => User::where('area', auth()->user()->area)->where('role', 'Revisor')->get()
+    ]);
 })->middleware(['auth', 'verified'])->name('JefDep');
 
 Route::get('/DivEst', function () {
-    return Inertia::render('DashboardDivEst');
+    return Inertia::render('DashboardDivEst', [
+        'files' => File::all(),
+        // solo enviar a los usuarios que son revisores
+        'users' => User::where('role', 'JefDep')->get()
+    ]);
 })->middleware(['auth', 'verified'])->name('DivEst');
 
 Route::resource('user', UserController::class)

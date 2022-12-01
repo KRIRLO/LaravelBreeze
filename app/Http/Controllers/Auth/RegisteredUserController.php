@@ -80,3 +80,5 @@ class RegisteredUserController extends Controller
         }
     }
 }
+
+//             'resident_id' => 'required | integer',

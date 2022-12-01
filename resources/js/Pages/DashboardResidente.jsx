@@ -1,13 +1,41 @@
 import React, { useEffect } from "react";
-import GuestLayout from "@/Layouts/GuestLayout";
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
+import { Head, useForm } from "@inertiajs/inertia-react";
 import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
-import { Head, Link, useForm } from "@inertiajs/inertia-react";
 import BarraResidente from "@/Layouts/BarraResidente";
 
 export default function DashboardResidente(props) {
+    const { data, setData, post, processing, errors, reset } = useForm({
+        name: "",
+        description: "",
+        path: "",
+        resident_id: "",
+        status: "",
+    });
+
+    useEffect(() => {
+        return () => {
+            reset("password", "password_confirmation");
+        };
+    }, []);
+
+    const onHandleChange = (event) => {
+        setData(
+            event.target.name,
+            event.target.type === "checkbox"
+                ? event.target.checked
+                : event.target.value
+        );
+    };
+
+    const submit = (e) => {
+        e.preventDefault();
+
+        post(route("Residente"));
+    };
+
+
+
+
     return (
         //en un tema oscuro se hace una barra para mostrar el nombre del usuario
         <BarraResidente
@@ -16,7 +44,7 @@ export default function DashboardResidente(props) {
             header={
                 // tema oscuro
                 <h2 className="font-semibold text-xl text-gray-100 leading-tight">
-                    Bienvenido: {props.auth.user.numctrl}
+                    Bienvenido: {props.auth.user.name}
                 </h2>
             }
         >
@@ -28,11 +56,7 @@ export default function DashboardResidente(props) {
                         Subir Archivo
                     </h2>
 
-                    <form
-                        action="/upload"
-                        method="POST"
-                        encType="multipart/form-data"
-                    >
+                    <form onSubmit={submit}>
                         <div className="flex flex-col mt-4">
                             <label
                                 className="block text-sm text-gray-600 dark:text-gray-200"
@@ -65,44 +89,54 @@ export default function DashboardResidente(props) {
                             />
                         </div>
                         <div className="flex items-center justify-between mt-4">
-                            <button
-                                type="submit"
-                                className="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-indigo-600 border border-transparent rounded-lg active:bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline-indigo"
-                            >
-                                Enviar
-                            </button>
+                            <PrimaryButton processing={processing}>
+                                Subir
+                            </PrimaryButton>
                         </div>
                     </form>
                 </div>
                 {/* se muestra una ventana flex a la derecha de la anterior */}
-                    <div className="flex-auto m-2 px-6 py-4 rounded-lg shadow-md dark:bg-gray-800 ">
-                    <h2 className="text-3xl font-semibold text-center text-gray-700 dark:text-white">
+                <div className="flex-auto m-2 px-6 py-4 rounded-lg shadow-md dark:bg-gray-800 ">
+                    <h2 className="text-3xl font-semibold text-center dark:text-white">
                         Archivos
                     </h2>
-                    <div className="flex flex-col mt-4">
-                        <table className="w-full text-md bg-gray-800 shadow-md rounded-8 mb-4 ">
-                            <tbody >
-                                <tr className="border-b-black">
+                    <div className="flex flex-col mt-4 p-6 bg-gray-800">
+                        <table className="table-auto w-full text-md bg-gray-800  shadow-md rounded-8 mb-4 ">
+                            <tbody>
+                                <tr>
                                     <th className="text-left p-3 px-5">
                                         Nombre
                                     </th>
                                     <th className="text-left p-3 px-5">
                                         Status
                                     </th>
+                                    <th className="text-left p-3 px-5">
+                                        Acciones
+                                    </th>
                                 </tr>
-                                {/* {props.archivos.map((archivo) => (
+                                {props.files.map((Files) => (
                                     <tr
-                                        key={archivo.id}
-                                        className="border-b border-gray-200 hover:bg-gray-100"
+                                        key={Files.id}
+                                        className="border-b border-gray-800"
                                     >
                                         <td className="p-3 px-5">
-                                            {archivo.name}
+                                            {Files.name}
                                         </td>
                                         <td className="p-3 px-5">
-                                            {archivo.status}
+                                            {Files.status}
+                                        </td>
+                                        <td className="p-3 px-5">
+                                            <button
+                                                onClick={() =>
+                                                    window.open(Files.path, "_blank")
+                                                }
+                                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                            >
+                                                Ver
+                                            </button>
                                         </td>
                                     </tr>
-                                ))} */}
+                                ))}
                             </tbody>
                         </table>
                     </div>
