@@ -59,9 +59,9 @@ Route::get('/Revisor', function () {
 Route::get('/JefDep', function () {
     return Inertia::render('DashboardJefDep',[
         //por medio de la relacion del modelo se obtienen los datos de la tabla files
-        'files' => File::with('resident')->get(),
+        'files' => File::with('Resident')->get(),
         // solo enviar a los usuarios que sean del mismo area que el usuario logueado y que sean revisores
-        'users' => User::where('area', auth()->user()->area)->where('role', 'Revisor')->get()
+        'users' => User::where('area', auth()->user()->area)->where('role', 'Revisor')->get(),
     ]);
 })->middleware(['auth', 'verified'])->name('JefDep');
 

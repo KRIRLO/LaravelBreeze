@@ -72,10 +72,4 @@ class FilesController extends Controller
     }
 }
 
-// se relaciona con el modelo de usuarios
-
-public function user()
-{
-    return $this->belongsTo(User::class);
-}
 
