@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\File;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -79,6 +80,15 @@ class RegisteredUserController extends Controller
                 break;
         }
     }
-}
 
-//             'resident_id' => 'required | integer',
+    // llave foranea a la tabla de files en la columna resident_id
+    public function residente()
+    {
+        return Inertia::render(
+            'Residente',
+            [
+                'files' => File::with('user:id')->where('user.id', auth()->user()->id)->get()
+            ]
+        );
+    }
+}

@@ -46,12 +46,12 @@ class File extends Model
         'updated_at' => 'datetime',
     ];
 
-    //se relaciona la tabla files con la tabla users
+    // Relación uno a muchos inversa con el modelo User
+
     public function resident()
     {
-        return $this->belongsTo(User::class, 'resident_id');
+        return $this->belongsTo(User::class);
     }
-
 
 }
 

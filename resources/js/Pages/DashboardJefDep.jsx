@@ -112,8 +112,6 @@ export default function DashboardJefDep(props) {
                             <tr key={user.id}>
                                 <td className="px-6 py-1">{user.name}</td>
                                 <td className="px-6 py-1">{user.area}</td>
-
-                                <td className="px-6 py-1">{user.status}</td>
                             </tr>
                         ))}
                     </tbody>

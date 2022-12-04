@@ -20,9 +20,12 @@ class FilesController extends Controller
 
     public function index()
     {
-        return Inertia::render('Auth/Residente',[
-            'files' => File::with('user:id')->where('user.id',auth()->user()->id)->get(),
-        ]);
+        return Inertia::render(
+            'Auth/Residente',
+            [
+                'files' => File::with('user:id')->where('user.id', auth()->user()->id)->get()
+            ]
+        );
     }
 
     /**
@@ -71,5 +74,3 @@ class FilesController extends Controller
         return redirect(route('file.index')) && response()->json(['message' => 'Archivo subido con exito'], 201);
     }
 }
-
-

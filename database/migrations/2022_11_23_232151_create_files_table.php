@@ -25,12 +25,14 @@ return new class extends Migration
             // path del archivo en google drive
             $table->string('path');
             // id del residente que subio el archivo
-            $table->unsignedBigInteger('resident_id');
-            // id del revisor que reviso el archivo
-            $table->unsignedBigInteger('revisor1_id')->nullable();
-            $table->unsignedBigInteger('revisor2_id')->nullable();
+            $table->foreignId('resident_id')->constrained('users');
+            // id del revisor1
+            $table->foreignId('revisor1_id')->constrained('users');
+            // id del revisor2
+            $table->foreignId('revisor2_id')->constrained('users');
             $table->string('status');
             $table->timestamps();
+
         });
     }
 
@@ -43,6 +45,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('files');
     }
-
-
 };
