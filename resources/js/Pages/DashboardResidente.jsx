@@ -41,7 +41,7 @@ export default function DashboardResidente(props) {
                         <div className="flex flex-col mt-4">
                             <label
                                 className="block text-sm text-gray-600 dark:text-gray-200"
-                                htmlFor="name"
+                                htmlFor="name_file"
                             >
                                 Nombre
                             </label>

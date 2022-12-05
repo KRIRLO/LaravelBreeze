@@ -19,6 +19,14 @@ class File extends Model
 
     protected $primaryKey = 'id';
 
+    protected $fillable = [
+        'name_file',
+        'description',
+        'path',
+        'resident_id',
+        'status',
+    ];
+
     /**
      * Los atributos que deben ocultarse para la serialización.
      *

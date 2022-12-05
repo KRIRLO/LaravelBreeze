@@ -15,7 +15,7 @@ class FilesController extends Controller
     public function upResident()
     {
         $file = new File();
-        $file->name_file = request('nameFile');
+        $file->name_file = request('name_file');
         $file->description = request('description');
         $file->path = request('path');
         $file->resident_id = auth()->user()->id;
