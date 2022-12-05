@@ -40,7 +40,6 @@ class RegisteredUserController extends Controller
             'numctrl' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users|ends_with:@tecvalles.mx',
             'role' => 'required|string|max:255',
-            'area' => 'required|string|max:255',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -52,6 +51,10 @@ class RegisteredUserController extends Controller
             'area' => $request->area,
             'password' => Hash::make($request->password),
         ]);
+
+        if ($request->role == 'DivEst') {
+            $request->area = 'División de Estudios';
+        }
 
         $user->save();
         switch ($user->role) {

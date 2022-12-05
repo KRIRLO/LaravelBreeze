@@ -5,6 +5,7 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/inertia-react";
+import { isNull } from "lodash";
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -196,9 +197,7 @@ export default function Register() {
                         </select>
                         <InputError message={errors.area} className="mt-2" />
                     </div>
-                ) : (
-                    data.area == "Division de Estudios Profesionales"
-                )}
+                ) : null}
 
                 <div className="mt-4">
                     <InputLabel forInput="password" value="Contraseña" />
