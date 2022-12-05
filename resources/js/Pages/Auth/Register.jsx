@@ -8,13 +8,13 @@ import { Head, Link, useForm } from "@inertiajs/inertia-react";
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
-        // name: "",
-        // numctrl: "",
-        // email: "",
-        // role: "",
+        name: "",
+        numctrl: "",
+        email: "",
+        role: "",
         area: "",
-        // password: "",
-        // password_confirmation: "",
+        password: "",
+        password_confirmation: "",
     });
 
     useEffect(() => {
@@ -37,7 +37,7 @@ export default function Register() {
         post(route("register"));
     };
 
-    /* if (processing === true) {
+    if (processing === true) {
         return (
             // ventana flotante que dice que se esta procesando
             <div className="fixed z-10 inset-0 overflow-y-auto">
@@ -98,7 +98,7 @@ export default function Register() {
                 </div>
             </div>
         );
-    }*/
+    }
 
     if (data.numctrl != "") {
         data.email = data.numctrl + "@tecvalles.mx";
@@ -152,13 +152,13 @@ export default function Register() {
                         className="dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 dark:placeholder-gray-500 dark:focus:ring-gray-500 dark:focus:border-gray-500 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md mt-1 "
                         onChange={onHandleChange}
                     >
-                        <option value="">Selecciona un rol</option>
+                        <option value="">Seleccionar un rol</option>
+                        <option value="Revisor">Revisor</option>
+                        <option value="Residente">Residente</option>
+                        <option value="JefDep">Jefe de Departamento</option>
                         <option value="DivEst">
                             División de Estudios Profesionales
                         </option>
-                        <option value="JefDep">Jefe de Departamento</option>
-                        <option value="Revisor">Revisor</option>
-                        <option value="Residente">Residente</option>
                     </select>
 
                     <InputError message={errors.role} className="mt-2" />
@@ -196,8 +196,6 @@ export default function Register() {
                         </select>
                         <InputError message={errors.area} className="mt-2" />
                     </div>
-
-
                 ) : null}
 
                 <div className="mt-4">
