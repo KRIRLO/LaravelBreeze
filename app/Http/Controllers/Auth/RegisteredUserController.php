@@ -40,6 +40,7 @@ class RegisteredUserController extends Controller
             'numctrl' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users|ends_with:@tecvalles.mx',
             'role' => 'required|string|max:255',
+            'area' => 'required|string|max:255',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -48,6 +49,7 @@ class RegisteredUserController extends Controller
             'numctrl' => $request->numctrl,
             'email' => $request->email,
             'role' => $request->role,
+            'area' => $request->area,
             'password' => Hash::make($request->password),
         ]);
 
@@ -79,16 +81,5 @@ class RegisteredUserController extends Controller
                 return redirect()->route("login");
                 break;
         }
-    }
-
-    // llave foranea a la tabla de files en la columna resident_id
-    public function residente()
-    {
-        return Inertia::render(
-            'Residente',
-            [
-                'files' => File::with('user:id')->where('user.id', auth()->user()->id)->get()
-            ]
-        );
     }
 }

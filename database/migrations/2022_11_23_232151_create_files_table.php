@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name_file');
             // descripcion del archivo dada por el residente
             $table->string('description');
             // Comentario del revisor1
@@ -24,12 +24,13 @@ return new class extends Migration
             $table->string('comentario2')->nullable();
             // path del archivo en google drive
             $table->string('path');
-            // id del residente que subio el archivo
-            $table->foreignId('resident_id')->constrained('users');
-            // id del revisor1
-            $table->foreignId('revisor1_id')->constrained('users');
-            // id del revisor2
-            $table->foreignId('revisor2_id')->constrained('users');
+            // id del residente que subio el archivo sin acciones al borrar o actualizar
+            $table->unsignedBigInteger('resident_id');
+            // id del revisor1 que reviso el archivo sin acciones al borrar o actualizar
+            $table->unsignedBigInteger('revisor1_id')->nullable();
+            // id del revisor2 que reviso el archivo sin acciones al borrar o actualizar
+            $table->unsignedBigInteger('revisor2_id')->nullable();
+            // estado del archivo
             $table->string('status');
             $table->timestamps();
 

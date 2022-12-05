@@ -17,17 +17,7 @@ class File extends Model
      * @var array<int, string>
      */
 
-    protected $fillable = [
-        'name',
-        'description',
-        'comentario1',
-        'comentario2',
-        'path',
-        'resident_id',
-        'revisor1_id',
-        'revisor2_id',
-        'status',
-    ];
+    protected $primaryKey = 'id';
 
     /**
      * Los atributos que deben ocultarse para la serialización.
@@ -45,14 +35,6 @@ class File extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
-
-    // Relación uno a muchos inversa con el modelo User
-
-    public function resident()
-    {
-        return $this->belongsTo(User::class);
-    }
-
 }
 
 

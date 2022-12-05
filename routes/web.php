@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Models\User;
 use App\Models\File;
+use App\Http\Controllers\API\FilesController;
 
 use function App\Http\Controllers\API\user;
 
@@ -47,23 +48,29 @@ Route::get('/Residente', function () {
         'DashboardResidente',
         [
             // se obtienen los datos de la tabla files y se envian a la vista pero solo los del usuario logueado
-            'files' => File::where('resident_id', auth()->user()->id)->get()
-        ]
+            'files' => File::where('resident_id', auth()->user()->id)->get(),
+            ]
     );
+
 })->middleware(['auth', 'verified'])->name('Residente');
+
+// se usa el controlador para subir los datos a la base de datos
+Route::post('DashboardResidente', [FilesController::class, 'upResident'])->name('upResident');
 
 Route::get('/Revisor', function () {
     return Inertia::render('DashboardRevisor');
 })->middleware(['auth', 'verified'])->name('Revisor');
 
 Route::get('/JefDep', function () {
-    return Inertia::render('DashboardJefDep',[
-        //por medio de la relacion del modelo se obtienen los datos de la tabla files
-        'files' => File::with('user:id')->get(),
-        // solo enviar a los usuarios que sean del mismo area que el usuario logueado y que sean revisores
-        'users' => User::where('area', auth()->user()->area)->where('role', 'Revisor')->get(),
-    ]);
+    return Inertia::render(
+        'DashboardJefDep',
+        [
+            'files' => File::where('resident_id', auth()->user()->id)->get(),
+            'users' => User::where('area', auth()->user()->area)->where('role', 'Revisor')->get(),
+        ]
+    );
 })->middleware(['auth', 'verified'])->name('JefDep');
+
 
 Route::get('/DivEst', function () {
     return Inertia::render('DashboardDivEst', [
@@ -73,8 +80,6 @@ Route::get('/DivEst', function () {
     ]);
 })->middleware(['auth', 'verified'])->name('DivEst');
 
-Route::resource('user', UserController::class)
-    ->only(['index', 'show', 'edit', 'update', 'destroy'])
-    ->middleware(['auth', 'verified']);
+
 
 require __DIR__ . '/auth.php';

@@ -18,11 +18,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'numctrl',
         'email',
+        'password',
+        'numctrl',
         'role',
         'area',
-        'password',
     ];
 
     /**
@@ -43,10 +43,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    // Relación uno a muchos con el modelo File
-    public function files()
-    {
-        return $this->hasMany(File::class);
-    }
 }

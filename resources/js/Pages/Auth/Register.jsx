@@ -8,13 +8,13 @@ import { Head, Link, useForm } from "@inertiajs/inertia-react";
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: "",
-        numctrl: "",
-        email: "",
-        role: "",
+        // name: "",
+        // numctrl: "",
+        // email: "",
+        // role: "",
         area: "",
-        password: "",
-        password_confirmation: "",
+        // password: "",
+        // password_confirmation: "",
     });
 
     useEffect(() => {
@@ -37,7 +37,7 @@ export default function Register() {
         post(route("register"));
     };
 
-    if (processing === true) {
+    /* if (processing === true) {
         return (
             // ventana flotante que dice que se esta procesando
             <div className="fixed z-10 inset-0 overflow-y-auto">
@@ -98,7 +98,7 @@ export default function Register() {
                 </div>
             </div>
         );
-    }
+    }*/
 
     if (data.numctrl != "") {
         data.email = data.numctrl + "@tecvalles.mx";
@@ -151,7 +151,6 @@ export default function Register() {
                         value={data.role}
                         className="dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 dark:placeholder-gray-500 dark:focus:ring-gray-500 dark:focus:border-gray-500 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md mt-1 "
                         onChange={onHandleChange}
-                        required
                     >
                         <option value="">Selecciona un rol</option>
                         <option value="DivEst">
@@ -167,25 +166,39 @@ export default function Register() {
 
                 {data.role != "DivEst" ? (
                     <div className="mt-4">
-                        <InputLabel forInput="area" value="Area" />
+                        <InputLabel forInput="area" value="Carrera" />
 
                         <select
                             name="area"
                             value={data.area}
                             className="dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 dark:placeholder-gray-500 dark:focus:ring-gray-500 dark:focus:border-gray-500 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md mt-1 "
                             onChange={onHandleChange}
-                            required
                         >
                             <option value="">Selecciona un area</option>
-                            <option value="Ing. En sistemas computacionales">Ing. en sistemas computacionales</option>
-                            <option value="Ing. Industrial">Ing. Industrial</option>
-                            <option value="Ing. En gestion empresarial">Ing. en gestion empresarial</option>
-                            <option value="Ing. En industrias alimentarias">Ing. en industrias alimentarias</option>
-                            <option value="Ing. Ambiental">Ing. Ambiental</option>
-                            <option value="Ing. En gastronomia">Ing. en gastronomia</option>
+                            <option value="Ing. En sistemas computacionales">
+                                Ing. en sistemas computacionales
+                            </option>
+                            <option value="Ing. Industrial">
+                                Ing. Industrial
+                            </option>
+                            <option value="Ing. En gestion empresarial">
+                                Ing. en gestion empresarial
+                            </option>
+                            <option value="Ing. En industrias alimentarias">
+                                Ing. en industrias alimentarias
+                            </option>
+                            <option value="Ing. Ambiental">
+                                Ing. Ambiental
+                            </option>
+                            <option value="Ing. En gastronomia">
+                                Ing. en gastronomia
+                            </option>
                         </select>
+                        <InputError message={errors.area} className="mt-2" />
                     </div>
-                ) : ( <div></div> )}
+
+
+                ) : null}
 
                 <div className="mt-4">
                     <InputLabel forInput="password" value="Contraseña" />
