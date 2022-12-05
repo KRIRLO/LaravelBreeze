@@ -77,6 +77,9 @@ Route::get('/DivEst', function () {
         'files' => File::all(),
         // solo enviar a los usuarios que son revisores
         'users' => User::where('role', 'JefDep')->get()
+        //se le permite registrar usuarios
+
+        // 
     ]);
 })->middleware(['auth', 'verified'])->name('DivEst');
 

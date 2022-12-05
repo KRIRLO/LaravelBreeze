@@ -66,11 +66,12 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * Destroy an authenticated session.
+     * Cerrar la sesión de la solicitud actual.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
+
     public function destroy(Request $request)
     {
         Auth::guard('web')->logout();

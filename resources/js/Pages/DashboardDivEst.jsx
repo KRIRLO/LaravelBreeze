@@ -29,7 +29,7 @@ export default function Dashboard(props) {
                                 <tr key={anteproyecto.id}>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="text-sm text-gray-100">
-                                            {anteproyecto.name}
+                                            {anteproyecto.name_file}
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
@@ -39,18 +39,7 @@ export default function Dashboard(props) {
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-900">
-                                            {/* se buscan los datos de acuerdo al resident_id en la tabla users*/}
-                                            {
-                                                //se ejecura la funcion getArea
-                                                props.users.map((area) => (
-                                                    <div key={area.id}>
-                                                        {area.id ===
-                                                        anteproyecto.resident_id
-                                                            ? area.area
-                                                            : area.area}
-                                                    </div>
-                                                ))
-                                            }
+                                            {anteproyecto.resident_id}
                                         </span>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">

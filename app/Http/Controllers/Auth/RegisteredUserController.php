@@ -52,12 +52,9 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        if ($request->role == 'DivEst') {
-            $request->area = 'División de Estudios';
-        }
 
         $user->save();
-        switch ($user->role) {
+        /* switch ($user->role) {
             case "Residente":
                 //se redirecciona a la ruta de residente
                 return redirect()->route('Residente');
@@ -82,6 +79,6 @@ class RegisteredUserController extends Controller
                 //se redirecciona a la ruta de login
                 return redirect()->route("login");
                 break;
-        }
+        } */
     }
 }

@@ -19,8 +19,9 @@ class FilesController extends Controller
         $file->description = request('description');
         $file->path = request('path');
         $file->resident_id = auth()->user()->id;
-        $file->status = "Enviado a jefe de departamento";
+        $file->status = "Enviado a División de Estudios";
         $file->save();
         return Redirect::route('Residente');
     }
+
 }
