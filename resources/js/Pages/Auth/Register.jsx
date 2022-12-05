@@ -196,7 +196,9 @@ export default function Register() {
                         </select>
                         <InputError message={errors.area} className="mt-2" />
                     </div>
-                ) : null}
+                ) : (
+                    data.area == "Division de Estudios Profesionales"
+                )}
 
                 <div className="mt-4">
                     <InputLabel forInput="password" value="Contraseña" />

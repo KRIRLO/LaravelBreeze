@@ -53,9 +53,8 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
-        Auth::login($user);
-        switch (Auth::user()->role) {
+        $user->save();
+        switch ($user->role) {
             case "Residente":
                 //se redirecciona a la ruta de residente
                 return redirect()->route('Residente');
