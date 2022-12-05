@@ -25,11 +25,13 @@ return new class extends Migration
             // path del archivo en google drive
             $table->string('path');
             // id del residente que subio el archivo sin acciones al borrar o actualizar
-            $table->unsignedBigInteger('resident_id');
+            $table->unsignedBigInteger('resident_id')->nullable();
             // id del revisor1 que reviso el archivo sin acciones al borrar o actualizar
             $table->unsignedBigInteger('revisor1_id')->nullable();
             // id del revisor2 que reviso el archivo sin acciones al borrar o actualizar
             $table->unsignedBigInteger('revisor2_id')->nullable();
+            // id del director que reviso el archivo sin acciones al borrar o actualizar
+            $table->unsignedBigInteger('jefdep_id')->nullable();
             // estado del archivo
             $table->string('status');
             $table->timestamps();

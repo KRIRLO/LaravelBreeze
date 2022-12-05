@@ -24,4 +24,13 @@ class FilesController extends Controller
         return Redirect::route('Residente');
     }
 
+    public function upDivEst()
+    {
+        $file = new File();
+        $file->jefdep_id = request('jefdep_id');
+        $file->status = "Enviado a Jefe de División";
+        $file->save();
+        return Redirect::route('DivEst');
+    }
+
 }

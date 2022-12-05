@@ -75,13 +75,15 @@ Route::get('/JefDep', function () {
 Route::get('/DivEst', function () {
     return Inertia::render('DashboardDivEst', [
         'files' => File::all(),
-        // solo enviar a los usuarios que son revisores
-        'users' => User::where('role', 'JefDep')->get()
-        //se le permite registrar usuarios
+        'users' => User::where('role', 'JefDep')->get(),
+        // se hace una peticion a la base de datos para obtener los datos de los usuarios por medio de files.resident_id
+        // SELECT * FROM `users`,`files` WHERE `users`.`id` = (`files`.`resident_id` = 2 );
+        'data' => File::join('users', 'users.id', '=', 'files.resident_id')->get(),
 
-        // 
     ]);
 })->middleware(['auth', 'verified'])->name('DivEst');
+
+Route::post('DashboardDivEst', [FilesController::class, 'upDivEst'])->name('upDivEst');
 
 
 
