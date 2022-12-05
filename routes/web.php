@@ -7,8 +7,6 @@ use App\Models\User;
 use App\Models\File;
 use App\Http\Controllers\API\FilesController;
 
-use function App\Http\Controllers\API\user;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -75,15 +73,15 @@ Route::get('/JefDep', function () {
 Route::get('/DivEst', function () {
     return Inertia::render('DashboardDivEst', [
         'files' => File::all(),
-        'users' => User::where('role', 'JefDep')->get(),
+        'jefdep' => User::where('role', 'JefDep')->get(),
         // se hace una peticion a la base de datos para obtener los datos de los usuarios por medio de files.resident_id
         // SELECT * FROM `users`,`files` WHERE `users`.`id` = (`files`.`resident_id` = 2 );
-        'data' => File::join('users', 'users.id', '=', 'files.resident_id')->get(),
-
+        'tabla' => File::join('users', 'users.id', '=', 'files.resident_id')->get(),
+        //al seleccionarser el jefdep se envia el id del jefdep para que se pueda filtrar los datos de los revisores
     ]);
 })->middleware(['auth', 'verified'])->name('DivEst');
 
-Route::post('DashboardDivEst', [FilesController::class, 'upDivEst'])->name('upDivEst');
+Route::post('DashboardDivEst', [FilesController::class, 'updateDivEst'])->name('updateDivEst');
 
 
 

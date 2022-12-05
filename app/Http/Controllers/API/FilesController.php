@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\File;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
 
 
@@ -24,13 +23,12 @@ class FilesController extends Controller
         return Redirect::route('Residente');
     }
 
-    public function upDivEst()
+    public function updateDivEst(Request $request, $id)
     {
-        $file = new File();
-        $file->jefdep_id = request('jefdep_id');
-        $file->status = "Enviado a Jefe de División";
+        $file = File::find($id);
+        $file->status = "Enviado a Jefe de Departamento";
+        $file->jefdep_id = $request->jefdep_id;
         $file->save();
-        return Redirect::route('DivEst');
+        return Redirect::route('Revisor');
     }
-
 }
