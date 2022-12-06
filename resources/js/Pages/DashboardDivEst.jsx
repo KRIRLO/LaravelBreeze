@@ -7,9 +7,8 @@ import PrimaryButton from "@/Components/PrimaryButton";
 
 export default function Dashboard(props) {
     const { data, setData, post, processing } = useForm({
-        id: null,
+        id_file: null,
         jefdep_id: null,
-        status: null,
     });
 
     const onHandleChange = (event) => {
@@ -52,6 +51,7 @@ export default function Dashboard(props) {
                                         <select
                                             name="jefdep_id"
                                             id="jefdep_id"
+                                            value={data.jefdep_id}
                                             className="block w-full mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 focus:border-blue-500 focus:outline-none focus:ring"
                                             onChange={onHandleChange}
                                         >
@@ -63,7 +63,6 @@ export default function Dashboard(props) {
                                                 <option
                                                     key={jefdep.id}
                                                     value={
-                                                        data.jefdep_id ==
                                                         jefdep.id
                                                     }
                                                 >
@@ -82,8 +81,9 @@ export default function Dashboard(props) {
                                             htmlFor="jefdep_id"
                                         />
                                         <select
-                                            name="jefdep_id"
-                                            id="jefdep_id"
+                                            name="id_file"
+                                            id="id_file"
+                                            value={data.id_file}
                                             className="block w-full mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 focus:border-blue-500 focus:outline-none focus:ring"
                                             onChange={onHandleChange}
                                         >
@@ -94,7 +94,6 @@ export default function Dashboard(props) {
                                                 <option
                                                     key={anteproyecto.id}
                                                     value={
-                                                        data.id ==
                                                         anteproyecto.id
                                                     }
                                                 >
@@ -134,13 +133,13 @@ export default function Dashboard(props) {
                             <table className="w-full text-md bg-gray-800 shadow-md rounded-8 mb-4 ">
                                 <tbody>
                                     <tr className="border-b-black">
-                                        <th className="text-left p-3 px-5">
+                                        <th className="text-left px-3 py-5">
                                             Nombre
                                         </th>
-                                        <th className="text-left p-3 px-5">
+                                        <th className="text-left px-3 py-5">
                                             Area o carrera
                                         </th>
-                                        <th className="text-left p-3 px-5">
+                                        <th className="text-left px-3 py-5">
                                             Correo
                                         </th>
                                     </tr>
@@ -149,14 +148,17 @@ export default function Dashboard(props) {
                                             key={JefDep.id}
                                             className="border-b border-gray-800 hover:bg-gray-700"
                                         >
-                                            <td className="p-3 px-5">
+                                            <td className="px-3 py-5">
                                                 {JefDep.name}
                                             </td>
-                                            <td className="p-3 px-5">
+                                            <td className="px-3 py-5">
                                                 {JefDep.area}
                                             </td>
-                                            <td className="p-3 px-5">
+                                            <td className="px-3 py-5">
                                                 {JefDep.email}
+                                            </td>
+                                            <td className="px-3 py-5">
+                                                {JefDep.id}
                                             </td>
                                         </tr>
                                     ))}
@@ -191,13 +193,13 @@ export default function Dashboard(props) {
                                             key={JefDep.id}
                                             className="border-b border-gray-800"
                                         >
-                                            <td className="p-3 px-5">
+                                            <td className="px-3 py-5">
                                                 {JefDep.name}
                                             </td>
-                                            <td className="p-3 px-5">
+                                            <td className="px-3 py-5">
                                                 {JefDep.description}
                                             </td>
-                                            <td className="p-3 px5">
+                                            <td className="px-3 py-5">
                                                 <span className="  px-4 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-900">
                                                     {JefDep.area}
                                                 </span>
