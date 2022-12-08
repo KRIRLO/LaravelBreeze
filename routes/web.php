@@ -53,8 +53,10 @@ Route::post('DashboardResidente', [FilesController::class, 'upResident'])->name(
 Route::get('/Revisor', function () {
     return Inertia::render('DashboardRevisor',
         [
-            'files' => File::where('revisor1_id', auth()->user()->id)->orWhere('revisor2_id', auth()->user()->id)->get(),
-            'users' => User::join('files', 'users.id', '=', 'files.revisor1_id')->orWhere('users.id', '=', 'files.revisor2_id')->get(),
+            'files' => File::where('revisor1_id', auth()->user()->id)
+            ->orWhere('revisor2_id', auth()->user()->id)->get(),
+            'users' => User::join('files', 'users.id', '=', 'files.revisor1_id')
+            ->orWhere('users.id', '=', 'files.revisor2_id')->get(),
         ]
     );
 

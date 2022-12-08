@@ -21,7 +21,6 @@ class FilesController extends Controller
         $file->save();
         return Redirect::route('Residente');
     }
-
     public function updateDivEst()
     {
         $file = File::find(request('id_file'));

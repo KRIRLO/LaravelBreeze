@@ -34,7 +34,7 @@ export default function DashboardRevisor(props) {
 
             {/* se  muestra una ventana que muetra la lista de archivos pdf por revisar con tilwind*/}
 
-            <div className="flex px-6 ">
+            <div className="flex px-6 justify-center ">
                 <div className="flex-none py-5 bg-gray-900 sm:px-2 lg:px-4">
                     {/* segundo cuadro */}
 
@@ -118,7 +118,7 @@ export default function DashboardRevisor(props) {
                                             id="comentario"
                                             rows="8"
                                             cols="50"
-                                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            class=" w-full mt-2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Escriba su comentario a continuación..."
                                             name="comentario"
                                             onChange={onHandleChange}
